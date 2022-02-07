@@ -14,10 +14,11 @@ const config = {
       pages: 'docs',
       assets: 'docs',
       fallback: null,
-      paths: {
-        base: dev ? '' : '/csv-compare',
-      },
     }),
+
+    paths: {
+      base: dev ? '' : '/csv-compare',
+    },
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte'
