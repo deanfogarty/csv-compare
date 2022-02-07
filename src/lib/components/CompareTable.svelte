@@ -43,7 +43,7 @@
             {
               A: filterFields(r, keysA),
               B: {},
-              mismatch: false,
+              mismatch: { A: [], B: [] },
             },
           ];
         })
@@ -59,14 +59,14 @@
             out.set(r[keyB], {
               ...record,
               B: filterFields(r, keysB),
-              mismatch: false,
+              mismatch: { A: [], B: [] },
             });
           }
         } else {
           out.set(r[keyB], {
             A: {},
             B: filterFields(r, keysB),
-            mismatch: false,
+            mismatch: { A: [], B: [] },
           });
         }
       });
@@ -81,7 +81,8 @@
         const fileBField = f[1];
 
         if (o['A'][fileAField] !== o['B'][fileBField]) {
-          o['mismatch'] = true;
+          o['mismatch'].A.push(fileAField);
+          o['mismatch'].B.push(fileBField);
         }
       });
     });
@@ -145,10 +146,10 @@
 
   <tbody>
     {#each [...out] as o, i}
-      <tr class:mismatch={o[1]['mismatch']}>
+      <tr>
         <th>{i + 1}</th>
         {#each keysA as k}
-          <td>
+          <td class:mismatch={o[1]['mismatch'].A.includes(k)}>
             {#if o[1]['A'][k]}
               {o[1]['A'][k]}
             {/if}
@@ -158,7 +159,7 @@
         <th>{o[0]}</th>
 
         {#each keysB as k}
-          <td>
+          <td class:mismatch={o[1]['mismatch'].B.includes(k)}>
             {#if o[1]['B'][k]}
               {o[1]['B'][k]}
             {/if}
