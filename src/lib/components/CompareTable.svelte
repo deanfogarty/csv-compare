@@ -119,61 +119,66 @@
   <span>{copiedMessage}</span>
 </div>
 
-<table id="results">
-  <thead>
-    <tr>
-      <th>Files</th>
-      <th colspan={keysA.length}>
-        {filenameA}
-      </th>
-      <th>&nbsp;</th>
-      <th colspan={keysB.length}>
-        {filenameB}
-      </th>
-    </tr>
-
-    <tr>
-      <th>Row</th>
-      {#each keysA as k}
-        <th>{k}</th>
-      {/each}
-      <th>Shared Key</th>
-      {#each keysB as k}
-        <th>{k}</th>
-      {/each}
-    </tr>
-  </thead>
-
-  <tbody>
-    {#each [...out] as o, i}
+{#key out}
+  <table id="results">
+    <thead>
       <tr>
-        <th>{i + 1}</th>
+        <th>Files</th>
+        <th colspan={keysA.length}>
+          {filenameA}
+        </th>
+        <th>&nbsp;</th>
+        <th colspan={keysB.length}>
+          {filenameB}
+        </th>
+      </tr>
+
+      <tr>
+        <th>Row</th>
         {#each keysA as k}
-          <td class:mismatch={o[1]['mismatch'].A.includes(k)}>
-            {#if o[1]['A'][k]}
-              {o[1]['A'][k]}
-            {/if}
-          </td>
+          <th>{k}</th>
         {/each}
-
-        <th>{o[0]}</th>
-
+        <th>Shared Key</th>
         {#each keysB as k}
-          <td class:mismatch={o[1]['mismatch'].B.includes(k)}>
-            {#if o[1]['B'][k]}
-              {o[1]['B'][k]}
-            {/if}
-          </td>
+          <th>{k}</th>
         {/each}
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      {#each [...out] as o, i}
+        <tr>
+          <th>{i + 1}</th>
+          {#each keysA as k}
+            <td class:mismatch={o[1]['mismatch'].A.includes(k)}>
+              {#if o[1]['A'][k]}
+                {o[1]['A'][k]}
+              {/if}
+            </td>
+          {/each}
+
+          <td>{o[0]}</td>
+
+          {#each keysB as k}
+            <td class:mismatch={o[1]['mismatch'].B.includes(k)}>
+              {#if o[1]['B'][k]}
+                {o[1]['B'][k]}
+              {/if}
+            </td>
+          {/each}
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+{/key}
 
 <style>
   table {
     margin-top: 1em;
-    font-size: 14px;
+
+    /* Match Google spreadsheets default */
+    font-size: 10pt;
+    font-family: arial, sans-serif;
   }
   .mismatch {
     background-color: #f99;
