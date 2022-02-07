@@ -26,7 +26,17 @@
   <FieldMatch {filenameA} {filenameB} bind:fieldMap {fieldsA} {fieldsB} />
 </div>
 
-<CompareTable {fieldMap} {filenameA} {filenameB} {keyA} {keyB} {keysA} {keysB} {fileA} {fileB} />
+<CompareTable
+  {fieldMap}
+  {filenameA}
+  {filenameB}
+  {keyA}
+  {keyB}
+  keysA={fieldsA}
+  keysB={fieldsB}
+  {fileA}
+  {fileB}
+/>
 
 <style>
   .wrapper {
