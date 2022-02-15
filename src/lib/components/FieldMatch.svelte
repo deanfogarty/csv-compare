@@ -50,20 +50,30 @@
             <input type="checkbox" bind:checked={checkboxes[i]} />
           </th>
           <td>
-            <button type="button" on:click={() => moveA(i, true)} disabled={i === 0}>&#8593;</button
-            >
-            <button type="button" on:click={() => moveA(i, false)} disabled={i === max - 1}
-              >&#8595;</button
-            >
-            {fieldsA[i] ? fieldsA[i] : ''}
+            {#if i < fieldsA.length}
+              <button type="button" on:click={() => moveA(i, true)} disabled={i === 0}
+                >&#8593;</button
+              >
+              <button
+                type="button"
+                on:click={() => moveA(i, false)}
+                disabled={i === fieldsA.length - 1}>&#8595;</button
+              >
+              {fieldsA[i] ? fieldsA[i] : ''}
+            {/if}
           </td>
           <td>
-            <button type="button" on:click={() => moveB(i, true)} disabled={i === 0}>&#8593;</button
-            >
-            <button type="button" on:click={() => moveB(i, false)} disabled={i === max - 1}
-              >&#8595;</button
-            >
-            {fieldsB[i] ? fieldsB[i] : ''}
+            {#if i < fieldsB.length}
+              <button type="button" on:click={() => moveB(i, true)} disabled={i === 0}
+                >&#8593;</button
+              >
+              <button
+                type="button"
+                on:click={() => moveB(i, false)}
+                disabled={i === fieldsB.length - 1}>&#8595;</button
+              >
+              {fieldsB[i] ? fieldsB[i] : ''}
+            {/if}
           </td>
         </tr><tr />
       {/each}
