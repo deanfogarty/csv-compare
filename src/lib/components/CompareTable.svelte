@@ -12,6 +12,11 @@
   let out: Map<string, object> = new Map([]);
   let errors: Array<string> = [];
   let copiedMessage: string = '';
+  let showErrors: boolean = false;
+
+  const toggleErrors = () => {
+    showErrors = !showErrors;
+  };
 
   const filterFields = (r: object, keys: Array<string>) => {
     return keys.reduce((acc, k) => {
@@ -106,13 +111,18 @@
   };
 </script>
 
-{#if errors.length}
-  <ul>
-    {#each errors as e}
-      <li>{e}</li>
-    {/each}
-  </ul>
-{/if}
+<div class="errors">
+  {#if errors.length}
+    <button type="button" on:click={toggleErrors}>{showErrors ? 'Hide' : 'Show'} Errors</button>
+    {#if showErrors}
+      <ul>
+        {#each errors as e}
+          <li>{e}</li>
+        {/each}
+      </ul>
+    {/if}
+  {/if}
+</div>
 
 <div>
   <button type="button" on:click={copyToClipboard}>Copy table to clipboard</button>
@@ -182,5 +192,9 @@
   }
   .mismatch {
     background-color: #f99;
+  }
+  .errors {
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
 </style>
